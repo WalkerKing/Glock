@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>53. Maximum Subarray</title>
+</head>
+<body>
+	<h1>53. Maximum Subarray</h1>
+	<pre>
+		Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
+
+		For example, given the array [-2,1,-3,4,-1,2,1,-5,4],
+		the contiguous subarray [4,-1,2,1] has the largest sum = 6.
+	</pre>
+	<pre>
+		discuss:
+		Analysis of this problem:
+		这个问题的分析
+		Apparently, this is a optimization problem, which can be usually solved by DP. So when it comes to 
+		明显的，这是一个最优化问题，通常可以使用DP（动态规划）进行解决。因此，说到动态规划，
+		DP, the first thing for us to figure out is the format of the sub problem(or the state of each sub 
+		我们需要弄清楚的第一件事是子问题的格式（或者，每一个子问题的状态）。
+		problem). The format of the sub problem can be helpful when we are trying to come up with the 
+		当我们提出递归关系的时候，子问题的格式是非常有帮助的。
+		recursive relation.
+		
+		At first, I think the sub problem should look like: maxSubArray(int A[], int i, int j), which means 
+		首先，我认为子问题应该是这样的，maxSubArray(int A[], int i, int j)，
+		the maxSubArray for A[i: j]. In this way, our goal is to figure out what maxSubArray(A, 0, A.length 
+		意思是A[i, j]的最大子数组。以这种方式，我们的目标是计算出最大数组maxSubArray(A, 0, A.length - 1)。
+		- 1) is. However, if we define the format of the sub problem in this way, it's hard to find the 
+		但是，如果我们以这种方式定义了子问题的格式，
+		connection from the sub problem to the original problem(at least for me). In other words, I can't 
+		那么找到子问题和原始问题的联系将变得很难（至少对我来说是这样）。换句话说，
+		find a way to divided the original problem into the sub problems and use the solutions of the sub 
+		我找不到一种分解原始问题为子问题同时使用解决子问题的方法创建解决原始问题的办法。（真几把拗口，译者注）
+		problems to somehow create the solution of the original one.
+		
+		So I change the format of the sub problem into something like: maxSubArray(int A[], int i), which 
+		因此我改变了子问题的格式，maxSubArray(int A[], int i)的意思是A[0:i ] 的最大子数组，
+		means the maxSubArray for A[0:i ] which must has A[i] as the end element. Note that now the sub 
+		A[0:i ]必须以A[i]作为最后一个元素。注意，现在子问题的格式相对于之前的定义，更加不灵活不强大了，
+		problem's format is less flexible and less powerful than the previous one because there's a limitation that A[i] should be contained in that sequence and we have to keep track of each solution
+		因为有一个限制A[i]应该被包含在序列中，同时我们必须保持追踪每一个子问题的结果用于更新最优目标解。
+		of the sub problem to update the global optimal value. However, now the connect between the sub
+		然而，现在我们更清晰地建立了子问题和原始问题的联系。
+		problem & the original one becomes clearer:
+
+
+	</pre>
+
+	<script src="index.js"></script>
+	
+</body>
+</html>
