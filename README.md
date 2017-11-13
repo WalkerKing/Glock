@@ -1,2 +1,4 @@
 # Glock
-刷爆leetcode
+
+npm i
+npm run build
