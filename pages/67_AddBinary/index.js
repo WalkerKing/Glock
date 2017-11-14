@@ -14,21 +14,19 @@ Return "100".
  * @return {string}
  */
 var addBinary = function(a, b) {
-	var len = Math.max(a.length, b.length);
-	var carry = 0;	//表示进位
-	var sum = '';	//表示和
-	for(var i = 0; i < len; i++){
-		var _a = Number(a[a.length - 1 - i]);
-		isNaN(_a) && (_a = 0);
-		var _b = Number(b[b.length - 1 - i]);
-		isNaN(_b) && (_b = 0);
-		if(_a + _b + carry ){
-			
-		}
+	var i = a.length - 1,
+		j = b.length - 1,
+		c = 0,
+		s = '';
+	while(i >= 0 || j >= 0 || c === 1){
+		c += i >= 0 ? a[i--] - 0 : 0;
+		c += j >= 0 ? b[j--] - 0 : 0;
+		s = c % 2 + s;
+		c = parseInt(c/2);
 	}
-	return (_a + _b).toString(2);
+	console.log(s);
+	return s;
 };
 
 
-addBinary("10100000100100110110010000010101111011011001101110111111111101000000101111001110001111100001101",
-"110101001011101110001111100110001010100001101011101010000011011011001011101111001100000011011110011")
+addBinary("101","1010")
