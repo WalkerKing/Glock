@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title jade+node.js express
+    link(rel="stylesheet", href="../node_modules/bootstrap/dist/css/bootstrap.min.css")
+  body
+    block container
+      div.container
+        h3
+          a(href="#{href}" rel="external nofollow" ) !{title}
+        pre !{body}
+    block footer
+      div.container
+        footer 版权所有 - by Walker walker.study@foxmail.com
