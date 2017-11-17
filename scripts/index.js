@@ -5,10 +5,13 @@
 
 const https = require('https');
 const jade = require('jade');
+const child_process = require('child_process');
 const fs = require('fs');
 
 let api = 'https://leetcode.com/api/problems/algorithms/';
 let dir = './src'
+
+//获取远程leetcode信息
 const GetData = (url) => {
 	return new Promise((resolve, reject) => {
 		https.get(api, res => {
@@ -32,21 +35,31 @@ const GetData = (url) => {
 	});
 };
 
-const getLocalJs = (dir) => {
-	fs.readdir(dir, (err, files) => {
-		// console.log(files);
+const createHtml = (files) => {
+	child_process.exec('rm -rf ./dist', () => {
+		console.log('dist文件夹删除完毕');
+		fs.mkdirSync('./dist');
 		for(let i in files){
 			let fileName = files[i];
+			let newName = files[i].split('.')[0];
 			let body = fs.readFileSync('./src/' + fileName);
 			let str = jade.renderFile('./views/layout.jade', {
 				id : '1',
-				title : fileName,
+				title : newName,
 				href : '#',
 				body : body
-			} );
-			fs.writeFileSync('./dist/' + fileName + '.html', str );
-
+			});
+			
+			fs.writeFileSync('./dist/' + newName + '.html', str );
 		}
+	})
+}
+
+//根据本地js文件创建html页面
+const getLocalJs = (dir) => {
+
+	fs.readdir(dir, (err, files) => {
+		createHtml(files);
 	});
 };
 
