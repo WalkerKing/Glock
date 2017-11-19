@@ -39,6 +39,7 @@ const createHtml = (files) => {
 	child_process.exec('rm -rf ./dist', () => {
 		console.log('dist文件夹删除完毕');
 		fs.mkdirSync('./dist');
+		fs.mkdirSync('./dist/pages');
 		for(let i in files){
 			let fileName = files[i];
 			let newName = files[i].split('.')[0];
@@ -50,7 +51,7 @@ const createHtml = (files) => {
 				body : body
 			});
 			
-			fs.writeFileSync('./dist/' + newName + '.html', str );
+			fs.writeFileSync('./dist/pages/' + newName + '.html', str );
 		}
 	})
 }
