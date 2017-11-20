@@ -5,6 +5,7 @@
 
 const https = require('https');
 const jade = require('jade');
+const path = require('path');
 const child_process = require('child_process');
 const fs = require('fs');
 
@@ -12,7 +13,7 @@ let api = 'https://leetcode.com/api/problems/algorithms/';
 let dir = './src'
 
 //获取远程leetcode信息
-const GetData = (url) => {
+const GetData = (api) => {
 	return new Promise((resolve, reject) => {
 		https.get(api, res => {
 			let rawData = '';
@@ -36,35 +37,40 @@ const GetData = (url) => {
 };
 
 const createHtml = (files) => {
+
 	child_process.exec('rm -rf ./dist', () => {
-		console.log('dist文件夹删除完毕');
+		
 		fs.mkdirSync('./dist');
 		fs.mkdirSync('./dist/pages');
+		let list = [];
 		for(let i in files){
 			let fileName = files[i];
 			let newName = files[i].split('.')[0];
+			let newSrc = 'pages/' + newName + '.html';
 			let body = fs.readFileSync('./src/' + fileName);
 			let str = jade.renderFile('./views/layout.jade', {
-				id : '1',
 				title : newName,
 				href : '#',
 				body : body
 			});
 			
-			fs.writeFileSync('./dist/pages/' + newName + '.html', str );
+			list.push({
+				title: newName,
+				src: newSrc
+			});
+			fs.writeFileSync(path.resolve('./dist', newSrc), str);
 		}
+		createIndex(list);
 	})
 }
-
-//根据本地js文件创建html页面
-const getLocalJs = (dir) => {
-
-	fs.readdir(dir, (err, files) => {
-		createHtml(files);
+const createIndex = (list) => {
+	let str = jade.renderFile('./views/index.jade', {
+		title: '刷爆leetcode',
+		list
 	});
-};
-
-// let getData = GetData(api);
-
-getLocalJs(dir)
+	fs.writeFileSync('./dist/index.html', str );
+}
+fs.readdir(dir, (err, files) => {
+	createHtml(files);
+});
 

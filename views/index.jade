@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title jade+node.js express
+    link(rel="stylesheet", href="../node_modules/bootstrap/dist/css/bootstrap.min.css")
+  body
+    block container
+      div.container
+        h1=title
+      div.container
+        ul.list-group
+          each item in list
+            li.list-group-item
+              a(href="#{item.src}") !{item.title}
+    block footer
+      div.container 
+        footer 版权所有 - by Walker walker.study@foxmail.com
