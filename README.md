@@ -1,4 +1,4 @@
 # Glock
 
 npm i
-npm run build
+npm run g
