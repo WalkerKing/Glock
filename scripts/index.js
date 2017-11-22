@@ -42,9 +42,12 @@ const GetData = (api) => {
 					});
 					res.on('end', () => {
 						try {
-					      	const parsedData = JSON.parse(rawData);
+					      	let parsedData = JSON.parse(rawData);
 					      	print('leetcode数据获取完毕...');
-					      	resolve(rawData);
+					      	fs.writeFile('./data/leetcode.json', rawData, () => {
+					      		print('已将获取到的统计数据写入./data/leetcode.json中');
+					      	});
+					      	resolve(parsedData);
 					    } catch (e) {
 					      	reject(e);
 					    }
@@ -78,7 +81,6 @@ const createHtml = (files) => {
 	let deleteDir = RunShellCmd('rm -rf ./dist');
 	let getLeetCode = GetData(api);
 	Promise.all([deleteDir, getLeetCode]).then(values => {
-		fs.writeFileSync('./log/print.log', values);
 		let leetcode = values[1].stat_status_pairs;
 		
 		fs.mkdirSync('./dist');
