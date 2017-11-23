@@ -1,0 +1,29 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>535. Encode and Decode TinyURL</title><link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"></head><body><div class="container"><h3><a href="https://leetcode.com/problems/encode-and-decode-tinyurl" rel="external nofollow">535. Encode and Decode TinyURL</a></h3><pre>/**
+ * Encodes a URL to a shortened URL.
+ *
+ * @param {string} longUrl
+ * @return {string}
+ */
+var urls = [];
+var encode = function(longUrl) {
+	urls.push(longUrl);
+    return  "http://tinyurl.com/" + (urls.length - 1);
+};
+
+/**
+ * Decodes a shortened URL to its original URL.
+ *
+ * @param {string} shortUrl
+ * @return {string}
+ */
+var decode = function(shortUrl) {
+    return urls[shortUrl.split('.com/')[1]]
+};
+for(var k = 0; k < 100; k++){
+
+	encode(k);
+}
+/**
+ * Your functions will be called as such:
+ * decode(encode(url));
+ */</pre></div><div class="container"><footer>版权所有 - by Walker walker.study@foxmail.com</footer></div></body></html>
