@@ -5,4 +5,4 @@
 
 npm i
 
-npm run g
+npm run dev
